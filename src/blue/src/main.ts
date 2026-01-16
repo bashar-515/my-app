@@ -1,9 +1,13 @@
 import * as VIAM from "@viamrobotics/sdk";
 import Cookies from "js-cookie";
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const robotNameDivId = "robot-name";
+let apiKeyId = "";
+let apiKeySecret = "";
+let host = "";
+let machineId = "";
 
+async function main() {
+  const robotNameDivId = "robot-name";
   const robotNameDiv: HTMLElement | null = document.getElementById(robotNameDivId);
 
   if (!robotNameDiv) {
@@ -14,39 +18,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "hello.html";
   });
 
-  try {
-    let hostname = "";
-    let machineId = "";
-    let apiKeyId = "";
-    let apiKeySecret = ""
-
-    const machineInfo = window.location.pathname.split("/")[2];
-
-    ({
-      apiKey: { id: apiKeyId, key: apiKeySecret },
-      machineId: machineId,
-      hostname: hostname,
-    } = JSON.parse(Cookies.get(machineInfo)!));
-    
-    const robot = await (await connect(apiKeyId, apiKeySecret)).appClient.getRobot(machineId);
-
-    robotNameDiv.textContent = robot?.name && hostname ? `${robot.name}: ${hostname}` : "Undefined";
-  } catch (error) {
-    console.log(error);
-
-    robotNameDiv.textContent = "Could not retrieve robot. See console for more details";
-  }
-});
-
-async function connect(apiKeyId: string, apiKeySecret: string): Promise<VIAM.ViamClient> {
   const opts: VIAM.ViamClientOptions = {
     serviceHost: "https://app.viam.com",
     credentials: {
       type: "api-key",
-      authEntity: apiKeyId,
       payload: apiKeySecret,
+      authEntity: apiKeyId,
     },
   };
 
-  return await VIAM.createViamClient(opts);
+  const client = await VIAM.createViamClient(opts);
+  const machine = await client.appClient.getRobot(machineId);
+
+
+  robotNameDiv.textContent = machine?.name && host ? `${machine.name}: ${host}` : "Undefined";
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Extract the machine identifier from the URL
+  let machineCookieKey = window.location.pathname.split("/")[2];
+  ({
+    apiKey: { id: apiKeyId, key: apiKeySecret },
+    machineId: machineId,
+    hostname: host,
+  } = JSON.parse(Cookies.get(machineCookieKey)!));
+
+  main().catch((error) => {
+    console.error("encountered an error:", error);
+  });
+});
