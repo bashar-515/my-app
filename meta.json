@@ -7,13 +7,11 @@
       "name": "rmn",
       "type": "single_machine",
       "entrypoint": "module/apps/red/dist/index.html",
-      "logoPath": "module/apps/red/dist/dreamstime_xl_28041968.jpg"
     },
     {
       "name": "bmn",
       "type": "single_machine",
       "entrypoint": "module/apps/blue/dist/index.html",
-      "logoPath": "module/apps/red/dist/dreamstime_xl_28041968.jpg"
     }
   ]
 }
