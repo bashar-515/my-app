@@ -1,16 +1,16 @@
 {
-  "module_id": "bashar-prod:my-custom-app-module",
+  "module_id": "bashar-org-dev:my-module",
   "visibility": "public",
   "description": "This module tests a couple of Viam Apps.",
   "applications": [
     {
-      "name": "redmachinename",
+      "name": "rmn",
       "type": "single_machine",
       "entrypoint": "module/apps/red/dist/index.html",
       "logoPath": "module/apps/red/dist/dreamstime_xl_28041968.jpg"
     },
     {
-      "name": "bluemachinename",
+      "name": "bmn",
       "type": "single_machine",
       "entrypoint": "module/apps/blue/dist/index.html",
       "logoPath": "module/apps/red/dist/dreamstime_xl_28041968.jpg"
