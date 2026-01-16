@@ -35,58 +35,15 @@ async function main() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      // Extract the machine identifier from the URL
-      let machineCookieKey = window.location.pathname.split("/")[2];
-      console.log("Machine cookie key:", machineCookieKey);
+  // Extract the machine identifier from the URL
+  let machineCookieKey = window.location.pathname.split("/")[2];
+  ({
+    apiKey: { id: apiKeyId, key: apiKeySecret },
+    machineId: machineId,
+    hostname: host,
+  } = JSON.parse(Cookies.get(machineCookieKey)!));
 
-      const rawCookieValue = Cookies.get(machineCookieKey);
-      console.log("Raw cookie value:", rawCookieValue);
-      console.log("Cookie value type:", typeof rawCookieValue);
-      console.log("Cookie value length:", rawCookieValue?.length);
-
-      if (!rawCookieValue) {
-        console.error("Cookie not found!");
-        return;
-      }
-
-      // Log first 100 characters to see what we're dealing with
-      console.log("First 100 chars:", rawCookieValue.substring(0, 100));
-
-      // Try parsing as-is
-      console.log("Attempting to parse as plain JSON...");
-      let parsedData;
-      try {
-        parsedData = JSON.parse(rawCookieValue);
-        console.log("✓ Parsed as plain JSON successfully!");
-      } catch (e) {
-        console.log("✗ Failed to parse as plain JSON:", e);
-        console.log("Attempting to parse as base64-encoded JSON...");
-        try {
-          const decoded = atob(rawCookieValue);
-          console.log("Decoded base64:", decoded);
-          parsedData = JSON.parse(decoded);
-          console.log("✓ Parsed as base64-encoded JSON successfully!");
-        } catch (e2) {
-          console.error("✗ Failed to parse as base64 too:", e2);
-          throw e2;
-        }
-      }
-
-      console.log("Parsed data:", parsedData);
-
-      ({
-        apiKey: { id: apiKeyId, key: apiKeySecret },
-        machineId: machineId,
-        hostname: host,
-      } = parsedData);
-
-      console.log("Extracted values:", { apiKeyId, machineId, host });
-
-      main().catch((error) => {
-        console.error("encountered an error:", error);
-      });
-    } catch (error) {
-      console.error("Error in DOMContentLoaded:", error);
-    }
+  main().catch((error) => {
+    console.error("encountered an error:", error);
   });
+});

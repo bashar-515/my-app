@@ -1,6 +1,6 @@
 .PHONY: create update upload build
 
-VERSION := 0.0.6
+VERSION := 0.0.7
 MODULE_NAME := my-module
 STAGING_ORG_PUBLIC_NAMESPACE := bashar-org-dev
 PROD_ORG_PUBLIC_NAMESPACE := bashar-org
