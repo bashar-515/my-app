@@ -2,16 +2,17 @@
   "module_id": "bashar-org-dev:my-module",
   "visibility": "public",
   "description": "This module tests a couple of Viam Apps.",
+  "url": "https://github.com/bashar-515/my-app",
   "applications": [
     {
       "name": "rmn",
       "type": "single_machine",
-      "entrypoint": "module/apps/red/dist/index.html",
+      "entrypoint": "module/apps/red/dist/index.html"
     },
     {
       "name": "bmn",
       "type": "single_machine",
-      "entrypoint": "module/apps/blue/dist/index.html",
+      "entrypoint": "module/apps/blue/dist/index.html"
     }
   ]
 }
