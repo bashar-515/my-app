@@ -4,8 +4,8 @@ VERSION := 0.0.1
 MODULE_NAME := my-module
 STAGING_ORG_PUBLIC_NAMESPACE := bashar-org-dev
 PROD_ORG_PUBLIC_NAMESPACE := bashar-org
-STAGING_BASE_URL := app.viam.dev
-PROD_BASE_URL := app.viam.com
+STAGING_BASE_URL := https://app.viam.dev
+PROD_BASE_URL := https://app.viam.com
 
 ORG_PUBLIC_NAMESPACE := ${STAGING_ORG_PUBLIC_NAMESPACE}
 BASE_URL := ${STAGING_BASE_URL}
