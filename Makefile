@@ -1,6 +1,6 @@
 .PHONY: create update upload build
 
-VERSION := 0.0.4
+VERSION := 0.0.6
 MODULE_NAME := my-module
 STAGING_ORG_PUBLIC_NAMESPACE := bashar-org-dev
 PROD_ORG_PUBLIC_NAMESPACE := bashar-org
@@ -20,5 +20,5 @@ upload: build
 	viam --base-url ${BASE_URL} module upload --version=${VERSION} --platform=any --public-namespace=${ORG_PUBLIC_NAMESPACE} module
 
 build:
-	cd src/blue && npm run build
-	cd src/red && npm run build
+	cd src/blue && VITE_SERVICE_HOST=${BASE_URL} npm run build
+	cd src/red && VITE_SERVICE_HOST=${BASE_URL} npm run build

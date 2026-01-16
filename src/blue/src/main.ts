@@ -19,7 +19,7 @@ async function main() {
   });
 
   const opts: VIAM.ViamClientOptions = {
-    serviceHost: "https://app.viam.com",
+    serviceHost: import.meta.env.VITE_SERVICE_HOST,
     credentials: {
       type: "api-key",
       payload: apiKeySecret,
